@@ -6,7 +6,7 @@
     "email": "ckdekf369@gmail.com"
   },
   "scripts": {
-    "vpc.deploy": "aws cloudformation deploy --template-file ./stacks/vpc.yaml --stack-name {stack-name} --capabilities CAPABILITY_IAM --parameter-overrides AppName={AppName}",
+    "vpc.deploy": "aws cloudformation deploy --template-file ./stacks/vpc.yaml --stack-name $STACK_NAME --capabilities CAPABILITY_IAM --parameter-overrides AppName=$APP_NAME",
     "devops.deploy": "aws cloudformation deploy --template-file ./stacks/devops.yaml --stack-name {stack-name} --capabilities CAPABILITY_NAMED_IAM --parameter-overrides AppName={AppName} ManagerEmail={ManagerEmail} GitHubRepoName={GithubRepositoryName} GitHubUser={GithubUserName} GitHubToken={GithubAccessToken}"
   }
 }
