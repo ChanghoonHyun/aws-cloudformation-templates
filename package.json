@@ -1,12 +1,23 @@
 {
-  "name": "cloudformation-templates",
-  "version": "0.0.1",
-  "author": {
-    "name": "chhyun",
-    "email": "ckdekf369@gmail.com"
-  },
+  "name": "ase-example",
+  "version": "1.0.0",
+  "description": "aws serverless exress example ",
+  "main": "index.js",
   "scripts": {
-    "vpc.deploy": "aws cloudformation deploy --template-file ./stacks/vpc.yaml --stack-name $STACK_NAME --capabilities CAPABILITY_IAM --parameter-overrides AppName=$APP_NAME",
-    "devops.deploy": "aws cloudformation deploy --template-file ./stacks/devops.yaml --stack-name {stack-name} --capabilities CAPABILITY_NAMED_IAM --parameter-overrides AppName={AppName} ManagerEmail={ManagerEmail} GitHubRepoName={GithubRepositoryName} GitHubUser={GithubUserName} GitHubToken={GithubAccessToken}"
+    "start": "nodemon local.js",
+    "deploy": "sls deploy"
+  },
+  "author": "chhyun",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.14.12",
+    "serverless": "^1.26.0"
+  },
+  "dependencies": {
+    "aws-serverless-express": "^3.1.0",
+    "body-parser": "^1.18.2",
+    "compression": "^1.7.1",
+    "cors": "^2.8.4",
+    "express": "^4.16.2"
   }
 }
