@@ -30,13 +30,13 @@
 
 CloudFormation Designer로 vpc.yaml의 실제 구성을 확인해 보겠습니다.
 1. cloudformation 콘솔로 들어갑니다.
-![img](VPC_CF_Designer_HOW_TO_1.png)
+![img](img/VPC_CF_Designer_HOW_TO_1.png)
 2. 좌측 상단의 Design template 클릭
-![img](VPC_CF_Designer_HOW_TO_2.png)
+![img](img/VPC_CF_Designer_HOW_TO_2.png)
 3. 좌측 하단의 Template 탭에서 vpc.yaml의 내용을 붙여넣습니다.
-![img](VPC_CF_Designer_HOW_TO_3.png)
+![img](img/VPC_CF_Designer_HOW_TO_3.png)
 4. Designer meta data가 없어서 인식 하지 못합니다. 우측 상단의 리프레시 버튼을 클릭하면 콘솔에서 자동으로 meta data를 넣습니다.
-![img](VPC_CF_Designer_HOW_TO_4.png)
+![img](img/VPC_CF_Designer_HOW_TO_4.png)
 
 Designer에 템플릿 정보가 나오면 자유롭게 위치를 이동하거나 정보를 변경할 수 있습니다.
-![img](VPC_CF_Designer.png)
+![img](img/VPC_CF_Designer.png)
