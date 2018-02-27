@@ -7,7 +7,7 @@
   },
   "scripts": {
     "vpc.deploy": "aws cloudformation deploy --template-file ./stacks/vpc.yaml --stack-name $STACK_NAME --capabilities CAPABILITY_IAM --parameter-overrides AppName=$APP_NAME",
-    "vpc.delete": "aws cloudformation delete-stack --stack-name $APP_NAME",
+    "vpc.delete": "aws cloudformation delete-stack --stack-name $STACK_NAME",
     "devops.deploy": "aws cloudformation deploy --template-file ./stacks/devops.yaml --stack-name {stack-name} --capabilities CAPABILITY_NAMED_IAM --parameter-overrides AppName={AppName} ManagerEmail={ManagerEmail} GitHubRepoName={GithubRepositoryName} GitHubUser={GithubUserName} GitHubToken={GithubAccessToken}"
   }
 }
