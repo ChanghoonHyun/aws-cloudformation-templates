@@ -49,10 +49,21 @@ Resources:
     Properties:
       VpcId: !Ref Vpc
       CidrBlock: 192.0.1.0/25
+      AvailabilityZone: ap-northeast-2a
+      Tags:
+        - Key: Name
+          Value: !Sub '${AppName}-PublicSubnet1'
+        - Key: ResourceType
+          Value: !Sub '${AppName}'
+  PublicSubnet2:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      VpcId: !Ref Vpc
+      CidrBlock: 192.0.1.128/25
       AvailabilityZone: ap-northeast-2c
       Tags:
         - Key: Name
-          Value: !Sub '${AppName}-Nat-Subnet'
+          Value: !Sub '${AppName}-PublicSubnet2'
         - Key: ResourceType
           Value: !Sub '${AppName}'
   Igw:
@@ -119,6 +130,11 @@ Resources:
     Properties:
       RouteTableId: !Ref PublicRt
       SubnetId: !Ref PublicSubnet1
+  PublicSubnet2AssociationWithRouteTable:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      RouteTableId: !Ref PublicRt
+      SubnetId: !Ref PublicSubnet2
   IgwRt:
     Type: 'AWS::EC2::Route'
     Properties:
