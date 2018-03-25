@@ -95,13 +95,22 @@ Resources:
           Value: !Sub '${AppName}-Vpc-Sg'
         - Key: ResourceType
           Value: !Sub '${AppName}'
-  PrivateRt:
+  PrivateRt1:
     Type: 'AWS::EC2::RouteTable'
     Properties:
       VpcId: !Ref Vpc
       Tags:
         - Key: Name
-          Value: !Sub '${AppName}-Private-Rt'
+          Value: !Sub '${AppName}-Private-Rt1'
+        - Key: ResourceType
+          Value: !Sub '${AppName}'
+  PrivateRt2:
+    Type: 'AWS::EC2::RouteTable'
+    Properties:
+      VpcId: !Ref Vpc
+      Tags:
+        - Key: Name
+          Value: !Sub '${AppName}-Private-Rt2'
         - Key: ResourceType
           Value: !Sub '${AppName}'
   PublicRt:
@@ -118,12 +127,12 @@ Resources:
   PrivateSubnet1AssociationWithRouteTable:
     Type: 'AWS::EC2::SubnetRouteTableAssociation'
     Properties:
-      RouteTableId: !Ref PrivateRt
+      RouteTableId: !Ref PrivateRt1
       SubnetId: !Ref PrivateSubnet1
   PrivateSubnet2AssociationWithRouteTable:
     Type: 'AWS::EC2::SubnetRouteTableAssociation'
     Properties:
-      RouteTableId: !Ref PrivateRt
+      RouteTableId: !Ref PrivateRt2
       SubnetId: !Ref PrivateSubnet2
   PublicSubnet1AssociationWithRouteTable:
     Type: 'AWS::EC2::SubnetRouteTableAssociation'
@@ -154,15 +163,37 @@ Resources:
       SubnetId: !Ref PublicSubnet1
       Tags:
         - Key: Name
-          Value: !Sub '${AppName}-Nat-Gw'
+          Value: !Sub '${AppName}-Nat-Gw1'
         - Key: ResourceType
           Value: !Sub '${AppName}'
-  NatGwRt:
+  Eip2:
+    Type: 'AWS::EC2::EIP'
+    Properties: {}
+  NatGw2:
+    Type: 'AWS::EC2::NatGateway'
+    Properties:
+      AllocationId:
+        'Fn::GetAtt':
+          - Eip2
+          - AllocationId
+      SubnetId: !Ref PublicSubnet2
+      Tags:
+        - Key: Name
+          Value: !Sub '${AppName}-Nat-Gw2'
+        - Key: ResourceType
+          Value: !Sub '${AppName}'
+  NatGwRoute1:
     Type: 'AWS::EC2::Route'
     Properties:
       DestinationCidrBlock: 0.0.0.0/0
-      RouteTableId: !Ref PrivateRt
-      NatGatewayId: !Ref NatGw
+      RouteTableId: !Ref PrivateRt1
+      NatGatewayId: !Ref NatGw2
+  NatGwRoute2:
+    Type: 'AWS::EC2::Route'
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      RouteTableId: !Ref PrivateRt2
+      NatGatewayId: !Ref NatGw2
 Outputs:
   PrivateSubnet1Id:
     Description: PrivateSubnet1
