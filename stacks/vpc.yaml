@@ -150,15 +150,15 @@ Resources:
       DestinationCidrBlock: 0.0.0.0/0
       RouteTableId: !Ref PublicRt
       GatewayId: !Ref Igw
-  Eip:
+  Eip1:
     Type: 'AWS::EC2::EIP'
     Properties: {}
-  NatGw:
+  NatGw1:
     Type: 'AWS::EC2::NatGateway'
     Properties:
       AllocationId:
         'Fn::GetAtt':
-          - Eip
+          - Eip1
           - AllocationId
       SubnetId: !Ref PublicSubnet1
       Tags:
