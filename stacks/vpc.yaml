@@ -27,7 +27,7 @@ Resources:
     Properties:
       VpcId: !Ref Vpc
       CidrBlock: 192.0.0.0/25
-      AvailabilityZone: ap-northeast-2a
+      AvailabilityZone: !Sub '${AWS::Region}a'
       Tags:
         - Key: Name
           Value: !Sub '${AppName}-PrivateSubnet1'
@@ -38,7 +38,7 @@ Resources:
     Properties:
       VpcId: !Ref Vpc
       CidrBlock: 192.0.0.128/25
-      AvailabilityZone: ap-northeast-2c
+      AvailabilityZone: !Sub '${AWS::Region}c'
       Tags:
         - Key: Name
           Value: !Sub '${AppName}-PrivateSubnet2'
@@ -49,7 +49,7 @@ Resources:
     Properties:
       VpcId: !Ref Vpc
       CidrBlock: 192.0.1.0/25
-      AvailabilityZone: ap-northeast-2a
+      AvailabilityZone: !Sub '${AWS::Region}a'
       Tags:
         - Key: Name
           Value: !Sub '${AppName}-PublicSubnet1'
@@ -60,7 +60,7 @@ Resources:
     Properties:
       VpcId: !Ref Vpc
       CidrBlock: 192.0.1.128/25
-      AvailabilityZone: ap-northeast-2c
+      AvailabilityZone: !Sub '${AWS::Region}c'
       Tags:
         - Key: Name
           Value: !Sub '${AppName}-PublicSubnet2'
