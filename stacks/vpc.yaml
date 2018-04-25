@@ -10,23 +10,43 @@ Parameters:
     ConstraintDescription: >-
       Malformed input parameter. AppName must only contain upper and lower case
       letters, numbers, and -.
+  VpcCIDR: 
+    Description: Please enter the IP range (CIDR notation) for this VPC
+    Type: String
+    Default: 10.192.0.0/16
+  PublicSubnet1CIDR:
+    Description: Please enter the IP range (CIDR notation) for the public subnet in the first Availability Zone
+    Type: String
+    Default: 10.192.10.0/24
+  PublicSubnet2CIDR:
+    Description: Please enter the IP range (CIDR notation) for the public subnet in the second Availability Zone
+    Type: String
+    Default: 10.192.11.0/24
+  PrivateSubnet1CIDR:
+    Description: Please enter the IP range (CIDR notation) for the private subnet in the first Availability Zone
+    Type: String
+    Default: 10.192.20.0/24
+  PrivateSubnet2CIDR:
+    Description: Please enter the IP range (CIDR notation) for the private subnet in the second Availability Zone
+    Type: String
+    Default: 10.192.21.0/24
 Resources:
   Vpc:
     Type: 'AWS::EC2::VPC'
     Properties:
-      CidrBlock: 192.0.0.0/22
+      CidrBlock: !Ref VpcCIDR
       EnableDnsSupport: 'true'
       EnableDnsHostnames: 'true'
       Tags:
         - Key: Name
           Value: !Sub '${AppName}-Vpc'
-        - Key: ResourceType
+        - Key: App
           Value: !Sub '${AppName}'
   PrivateSubnet1:
     Type: 'AWS::EC2::Subnet'
     Properties:
       VpcId: !Ref Vpc
-      CidrBlock: 192.0.0.0/25
+      CidrBlock: !Ref PrivateSubnet1CIDR
       AvailabilityZone: !Sub '${AWS::Region}a'
       Tags:
         - Key: Name
@@ -37,7 +57,7 @@ Resources:
     Type: 'AWS::EC2::Subnet'
     Properties:
       VpcId: !Ref Vpc
-      CidrBlock: 192.0.0.128/25
+      CidrBlock: !Ref PrivateSubnet2CIDR
       AvailabilityZone: !Sub '${AWS::Region}c'
       Tags:
         - Key: Name
@@ -48,7 +68,7 @@ Resources:
     Type: 'AWS::EC2::Subnet'
     Properties:
       VpcId: !Ref Vpc
-      CidrBlock: 192.0.1.0/25
+      CidrBlock: !Ref PublicSubnet1CIDR
       AvailabilityZone: !Sub '${AWS::Region}a'
       Tags:
         - Key: Name
@@ -59,7 +79,7 @@ Resources:
     Type: 'AWS::EC2::Subnet'
     Properties:
       VpcId: !Ref Vpc
-      CidrBlock: 192.0.1.128/25
+      CidrBlock: !Ref PublicSubnet2CIDR
       AvailabilityZone: !Sub '${AWS::Region}c'
       Tags:
         - Key: Name
